@@ -83,7 +83,8 @@ function App() {
   const [category, setCategory] = useState("All");
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/products')
+    // ✅ CHANGED: Uses Live Render Backend
+    axios.get('https://abc-store-project.onrender.com/api/products')
       .then(res => setProducts(res.data))
       .catch(err => console.error(err));
   }, []);
@@ -101,7 +102,8 @@ function App() {
   const handlePayment = async () => {
     if(cart.length === 0) return alert("Cart is empty");
     try {
-      await axios.post('http://localhost:5000/api/payment');
+      // ✅ CHANGED: Uses Live Render Backend
+      await axios.post('https://abc-store-project.onrender.com/api/payment');
       alert("🎉 Order Placed Successfully! (Demo Payment Verified)");
       setCart([]);
       setShowCart(false);
