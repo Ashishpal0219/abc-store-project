@@ -9,7 +9,7 @@ app.use(cors());
 
 // Log to confirm file is loaded
 console.log("------------------------------------------");
-console.log("   ✅ RUNNING FINAL V4.0 CODE (CORRECT IMAGES)   ");
+console.log("   ✅ RUNNING FINAL V5.0 (FIXED SUGAR & TEA)   ");
 console.log("------------------------------------------");
 
 // Connect to MongoDB
@@ -37,7 +37,7 @@ app.get('/api/products', async (req, res) => {
     }
 });
 
-// --- FINAL FIXED SEED ROUTE ---
+// --- FINAL FIXED SEED ROUTE V5.0 ---
 app.get('/api/seed', async (req, res) => {
     console.log("... Deleting old data ...");
     await Product.deleteMany({});
@@ -64,7 +64,7 @@ app.get('/api/seed', async (req, res) => {
             price: 45, 
             category: "Staples", 
             description: "Fine white sulphur-free sugar.",
-            image: "https://images.unsplash.com/photo-1581441363689-1f3c3c414635?auto=format&fit=crop&w=600&q=80" 
+            image: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?auto=format&fit=crop&w=600&q=80" 
         },
         { 
             name: "Wheat Flour (10kg)", 
@@ -110,7 +110,7 @@ app.get('/api/seed', async (req, res) => {
             price: 250, 
             category: "Beverages", 
             description: "Strong aromatic Assam tea.",
-            image: "https://images.unsplash.com/photo-1597481499750-3e6b22637e12?auto=format&fit=crop&w=600&q=80"
+            image: "https://images.unsplash.com/photo-1564890369478-c59dc2d0df10?auto=format&fit=crop&w=600&q=80"
         },
         { 
             name: "Coffee Powder", 
@@ -159,7 +159,7 @@ app.get('/api/seed', async (req, res) => {
     ];
 
     await Product.insertMany(products);
-    res.send("SUCCESS! Database Updated to Version 4.0");
+    res.send("SUCCESS! Sugar is White, Tea is Fixed. Refresh Site!");
 });
 
 app.post('/api/payment', (req, res) => {
