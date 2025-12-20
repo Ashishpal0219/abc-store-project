@@ -7,11 +7,6 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-// Log to confirm file is loaded
-console.log("------------------------------------------");
-console.log("   ✅ RUNNING FINAL V5.0 (FIXED SUGAR & TEA)   ");
-console.log("------------------------------------------");
-
 // Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI)
     .then(() => console.log("MongoDB Connected Successfully!"))
@@ -37,12 +32,12 @@ app.get('/api/products', async (req, res) => {
     }
 });
 
-// --- FINAL FIXED SEED ROUTE V5.0 ---
+// --- FINAL CORRECTED SEED ROUTE ---
 app.get('/api/seed', async (req, res) => {
-    console.log("... Deleting old data ...");
-    await Product.deleteMany({});
+    console.log("... Wiping old data ...");
+    await Product.deleteMany({}); // Deletes the Coke/Broken images
     
-    console.log("... Inserting NEW data ...");
+    console.log("... Adding CORRECT images ...");
     const products = [
         // STAPLES
         { 
@@ -64,7 +59,7 @@ app.get('/api/seed', async (req, res) => {
             price: 45, 
             category: "Staples", 
             description: "Fine white sulphur-free sugar.",
-            image: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?auto=format&fit=crop&w=600&q=80" 
+            image: "https://images.unsplash.com/photo-1581441363689-1f3c3c414635?auto=format&fit=crop&w=600&q=80" 
         },
         { 
             name: "Wheat Flour (10kg)", 
@@ -110,7 +105,7 @@ app.get('/api/seed', async (req, res) => {
             price: 250, 
             category: "Beverages", 
             description: "Strong aromatic Assam tea.",
-            image: "https://images.unsplash.com/photo-1564890369478-c59dc2d0df10?auto=format&fit=crop&w=600&q=80"
+            image: "https://images.unsplash.com/photo-1571934811356-5cc55449d0a4?auto=format&fit=crop&w=600&q=80"
         },
         { 
             name: "Coffee Powder", 
@@ -159,7 +154,7 @@ app.get('/api/seed', async (req, res) => {
     ];
 
     await Product.insertMany(products);
-    res.send("SUCCESS! Sugar is White, Tea is Fixed. Refresh Site!");
+    res.send("DB FIXED: Sugar is now White, Tea & Potatoes are Visible!");
 });
 
 app.post('/api/payment', (req, res) => {
