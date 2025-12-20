@@ -3,20 +3,18 @@ import axios from 'axios';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
-import { ShoppingCart, Menu, X, Facebook, Twitter, Instagram, MapPin, Phone, Mail } from 'lucide-react';
+import { ShoppingCart, Menu, X, Trash2, MapPin, Phone, Mail, Facebook, Twitter, Instagram, Truck, ShieldCheck, Clock } from 'lucide-react';
 
-// --- Components ---
-
+// --- Navbar Component ---
 const Navbar = ({ cartCount, toggleCart }) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
-    <nav className="bg-blue-900 text-white sticky top-0 z-50 shadow-lg">
-      <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-        {/* Logo */}
-        <h1 className="text-2xl font-bold tracking-wider">ABC STORE</h1>
+    <nav className="bg-emerald-900 text-white sticky top-0 z-50 shadow-xl">
+      <div className="container mx-auto px-6 py-4 flex justify-between items-center">
+        <h1 className="text-3xl font-extrabold tracking-wider text-yellow-400">ABC STORE</h1>
         
-        {/* Desktop Menu */}
-        <div className="hidden md:flex space-x-8">
+        {/* Desktop Links */}
+        <div className="hidden md:flex space-x-8 font-medium">
           <a href="#" className="hover:text-yellow-400 transition">Home</a>
           <a href="#products" className="hover:text-yellow-400 transition">Products</a>
           <a href="#services" className="hover:text-yellow-400 transition">Services</a>
@@ -25,187 +23,257 @@ const Navbar = ({ cartCount, toggleCart }) => {
         </div>
 
         {/* Cart Icon */}
-        <div className="relative cursor-pointer" onClick={toggleCart}>
+        <div className="relative cursor-pointer hover:scale-110 transition" onClick={toggleCart}>
           <ShoppingCart size={28} />
           {cartCount > 0 && (
-            <span className="absolute -top-2 -right-2 bg-red-500 text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold">
+            <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold animate-bounce">
               {cartCount}
             </span>
           )}
         </div>
 
-        {/* Mobile Menu Button */}
+        {/* Mobile Menu */}
         <button className="md:hidden" onClick={() => setIsOpen(!isOpen)}>
           {isOpen ? <X /> : <Menu />}
         </button>
       </div>
-
-      {/* Mobile Menu */}
       {isOpen && (
-        <div className="md:hidden bg-blue-800 p-4 space-y-2">
-          <a href="#" className="block py-2 hover:text-yellow-400">Home</a>
-          <a href="#products" className="block py-2 hover:text-yellow-400">Products</a>
-          <a href="#contact" className="block py-2 hover:text-yellow-400">Contact</a>
+        <div className="md:hidden bg-emerald-800 p-4 space-y-2 text-center">
+          <a href="#" className="block py-2" onClick={() => setIsOpen(false)}>Home</a>
+          <a href="#products" className="block py-2" onClick={() => setIsOpen(false)}>Products</a>
+          <a href="#services" className="block py-2" onClick={() => setIsOpen(false)}>Services</a>
+          <a href="#contact" className="block py-2" onClick={() => setIsOpen(false)}>Contact</a>
         </div>
       )}
     </nav>
   );
 };
 
+// --- Hero Slider ---
 const HeroSlider = () => {
-  const settings = { dots: true, infinite: true, speed: 500, slidesToShow: 1, slidesToScroll: 1, autoplay: true };
+  const settings = { dots: true, infinite: true, speed: 600, slidesToShow: 1, slidesToScroll: 1, autoplay: true, autoplaySpeed: 3000 };
+  const slides = [
+    { img: "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1600&q=80", title: "Fresh Vegetables", sub: "Farm to Table, Daily." },
+    { img: "https://images.unsplash.com/photo-1604719312566-8912e9227c6a?auto=format&fit=crop&w=1600&q=80", title: "Organic Staples", sub: "Healthy living starts here." },
+    { img: "https://images.unsplash.com/photo-1578916171728-46686eac8d58?auto=format&fit=crop&w=1600&q=80", title: "Mega Discounts", sub: "Up to 50% OFF on Snacks!" }
+  ];
   return (
-    <div className="w-full overflow-hidden mb-10">
+    <div className="overflow-hidden shadow-lg">
       <Slider {...settings}>
-        <div className="relative h-[400px] bg-gray-800">
-          <img src="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?auto=format&fit=crop&w=1600&q=80" alt="Sale" className="w-full h-full object-cover opacity-60" />
-          <div className="absolute inset-0 flex flex-col justify-center items-center text-white">
-            <h2 className="text-5xl font-bold mb-4">Mega Sale is Live!</h2>
-            <p className="text-xl mb-6">Up to 50% off on all Grocery Items</p>
-            <button className="bg-yellow-500 text-black px-8 py-3 font-bold rounded hover:bg-yellow-400 transition">Shop Now</button>
+        {slides.map((s, i) => (
+          <div key={i} className="relative h-[500px]">
+            <img src={s.img} alt="Banner" className="w-full h-full object-cover brightness-50" />
+            <div className="absolute inset-0 flex flex-col justify-center items-center text-white text-center px-4">
+              <h2 className="text-5xl md:text-6xl font-bold mb-4 drop-shadow-lg">{s.title}</h2>
+              <p className="text-2xl mb-8 font-light">{s.sub}</p>
+              <a href="#products" className="bg-yellow-500 text-black px-8 py-3 rounded-full font-bold text-lg hover:bg-yellow-400 transition transform hover:scale-105">Shop Now</a>
+            </div>
           </div>
-        </div>
-        <div className="relative h-[400px] bg-gray-800">
-          <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1600&q=80" alt="Groceries" className="w-full h-full object-cover opacity-60" />
-          <div className="absolute inset-0 flex flex-col justify-center items-center text-white">
-            <h2 className="text-5xl font-bold mb-4">Fresh Vegetables</h2>
-            <p className="text-xl mb-6">Farm fresh delivered to your doorstep</p>
-            <button className="bg-green-500 text-white px-8 py-3 font-bold rounded hover:bg-green-600 transition">Explore</button>
-          </div>
-        </div>
+        ))}
       </Slider>
     </div>
   );
 };
 
-const Footer = () => (
-  <footer className="bg-gray-900 text-gray-300 py-10 mt-20" id="contact">
-    <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8">
-      <div>
-        <h3 className="text-white text-xl font-bold mb-4">ABC General Store</h3>
-        <p>Your one-stop shop for all daily needs. Quality products at the best prices.</p>
-      </div>
-      <div>
-        <h3 className="text-white text-xl font-bold mb-4">Contact Us</h3>
-        <p className="flex items-center gap-2 mb-2"><MapPin size={18}/> 123 Market Road, Dehradun</p>
-        <p className="flex items-center gap-2 mb-2"><Phone size={18}/> +91 98765 43210</p>
-        <p className="flex items-center gap-2"><Mail size={18}/> support@geniusesfactory.com</p>
-      </div>
-      <div>
-        <h3 className="text-white text-xl font-bold mb-4">Follow Us</h3>
-        <div className="flex space-x-4">
-          <Facebook className="hover:text-blue-500 cursor-pointer"/>
-          <Twitter className="hover:text-blue-400 cursor-pointer"/>
-          <Instagram className="hover:text-pink-500 cursor-pointer"/>
-        </div>
-      </div>
-    </div>
-    <div className="text-center mt-10 border-t border-gray-700 pt-6">
-      &copy; 2025 ABC General Store. All rights reserved.
-    </div>
-  </footer>
-);
-
 // --- Main App ---
-
 function App() {
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]);
   const [showCart, setShowCart] = useState(false);
+  const [category, setCategory] = useState("All");
 
   useEffect(() => {
-    // Fetch products from backend
     axios.get('http://localhost:5000/api/products')
       .then(res => setProducts(res.data))
-      .catch(err => console.error("Error:", err));
+      .catch(err => console.error(err));
   }, []);
 
   const addToCart = (product) => {
     setCart([...cart, product]);
+    alert(`${product.name} Added!`);
+  };
+
+  const removeFromCart = (index) => {
+    const newCart = cart.filter((_, i) => i !== index);
+    setCart(newCart);
   };
 
   const handlePayment = async () => {
     if(cart.length === 0) return alert("Cart is empty");
     try {
       await axios.post('http://localhost:5000/api/payment');
-      alert("Payment Successful (Demo Mode)");
+      alert("🎉 Order Placed Successfully! (Demo Payment Verified)");
       setCart([]);
       setShowCart(false);
     } catch (e) { alert("Payment Failed"); }
   };
 
+  // Filter Logic
+  const categories = ["All", ...new Set(products.map(p => p.category))];
+  const filteredProducts = category === "All" ? products : products.filter(p => p.category === category);
+
   return (
-    <div className="bg-gray-50 min-h-screen font-sans">
+    <div className="bg-gray-50 min-h-screen font-sans scroll-smooth">
       <Navbar cartCount={cart.length} toggleCart={() => setShowCart(true)} />
       <HeroSlider />
 
-      {/* Products Section */}
-      <div className="container mx-auto px-4 py-8" id="products">
-        <h2 className="text-3xl font-bold text-center mb-2 text-gray-800">Our Products</h2>
-        <div className="w-24 h-1 bg-blue-500 mx-auto mb-10"></div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-          {products.map(product => (
-            <div key={product._id} className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-2xl transition duration-300 transform hover:-translate-y-1 group">
-              <div className="h-48 overflow-hidden">
-                <img src={product.image} alt={product.name} className="w-full h-full object-cover group-hover:scale-110 transition duration-300" />
-              </div>
-              <div className="p-5">
-                <div className="text-xs text-blue-500 font-bold uppercase mb-2">{product.category || "General"}</div>
-                <h3 className="text-lg font-bold text-gray-800 mb-2 truncate">{product.name}</h3>
-                <p className="text-gray-500 text-sm mb-4 line-clamp-2">{product.description}</p>
-                <div className="flex justify-between items-center">
-                  <span className="text-xl font-bold text-gray-900">₹{product.price}</span>
-                  <button 
-                    onClick={() => addToCart(product)}
-                    className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-blue-700 transition flex items-center gap-2">
-                    <ShoppingCart size={16}/> Add
-                  </button>
-                </div>
-              </div>
-            </div>
-          ))}
+      {/* --- SERVICES SECTION (Requirement 3) --- */}
+      <div id="services" className="container mx-auto px-6 py-16">
+        <h2 className="text-3xl font-bold text-center text-gray-800 mb-10">Our Services</h2>
+        <div className="grid md:grid-cols-3 gap-8 text-center">
+          <div className="bg-white p-8 rounded-xl shadow-md hover:shadow-xl transition">
+            <Truck size={48} className="mx-auto text-emerald-600 mb-4"/>
+            <h3 className="text-xl font-bold mb-2">Fast Delivery</h3>
+            <p className="text-gray-500">Free delivery on orders above ₹500 within 2 hours.</p>
+          </div>
+          <div className="bg-white p-8 rounded-xl shadow-md hover:shadow-xl transition">
+            <ShieldCheck size={48} className="mx-auto text-emerald-600 mb-4"/>
+            <h3 className="text-xl font-bold mb-2">Quality Guarantee</h3>
+            <p className="text-gray-500">100% Organic and fresh products sourced directly.</p>
+          </div>
+          <div className="bg-white p-8 rounded-xl shadow-md hover:shadow-xl transition">
+            <Clock size={48} className="mx-auto text-emerald-600 mb-4"/>
+            <h3 className="text-xl font-bold mb-2">24/7 Support</h3>
+            <p className="text-gray-500">Our team is here to help you anytime, anywhere.</p>
+          </div>
         </div>
       </div>
 
-      {/* Slide-over Cart */}
+      {/* --- PRODUCTS SECTION (Requirement 3) --- */}
+      <div id="products" className="bg-white py-16">
+        <div className="container mx-auto px-6">
+          <h2 className="text-4xl font-bold text-center text-gray-800 mb-4">Our Products</h2>
+          <div className="w-24 h-1 bg-yellow-500 mx-auto mb-8"></div>
+          
+          {/* Category Filter */}
+          <div className="flex flex-wrap justify-center gap-4 mb-10">
+            {categories.map(cat => (
+              <button key={cat} onClick={() => setCategory(cat)} 
+                className={`px-4 py-2 rounded-full font-medium transition ${category === cat ? 'bg-emerald-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}>
+                {cat}
+              </button>
+            ))}
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+            {filteredProducts.map(product => (
+              <div key={product._id} className="bg-white border border-gray-100 rounded-2xl shadow-sm overflow-hidden hover:shadow-2xl transition duration-300 group">
+                <div className="h-56 overflow-hidden relative">
+                  <img src={product.image} alt={product.name} className="w-full h-full object-cover group-hover:scale-110 transition duration-500" />
+                  <div className="absolute top-2 right-2 bg-yellow-400 text-xs font-bold px-2 py-1 rounded">FRESH</div>
+                </div>
+                <div className="p-6">
+                  <div className="text-xs text-emerald-600 font-bold uppercase tracking-wide mb-1">{product.category}</div>
+                  <h3 className="text-lg font-bold text-gray-900 mb-2 truncate">{product.name}</h3>
+                  <p className="text-gray-500 text-sm mb-4 line-clamp-2">{product.description}</p>
+                  <div className="flex justify-between items-center mt-4">
+                    <span className="text-2xl font-bold text-gray-800">₹{product.price}</span>
+                    <button onClick={() => addToCart(product)} className="bg-emerald-600 text-white p-3 rounded-full hover:bg-emerald-700 transition shadow-lg hover:shadow-emerald-500/50">
+                      <ShoppingCart size={20}/>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* --- ABOUT SECTION (Requirement 1) --- */}
+      <div id="about" className="container mx-auto px-6 py-16 flex flex-col md:flex-row items-center gap-12">
+        <div className="md:w-1/2">
+          <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=800&q=80" className="rounded-2xl shadow-2xl" alt="About Us" />
+        </div>
+        <div className="md:w-1/2">
+          <h2 className="text-3xl font-bold mb-6 text-emerald-900">About ABC General Store</h2>
+          <p className="text-gray-600 text-lg leading-relaxed mb-4">
+            Established in 2025, ABC General Store is committed to providing the highest quality groceries, fresh produce, and daily essentials to our community.
+          </p>
+          <p className="text-gray-600 text-lg leading-relaxed">
+            We partner directly with local farmers to ensure that the vegetables and fruits you get are harvested the same day. Our mission is health, freshness, and affordability.
+          </p>
+        </div>
+      </div>
+
+      {/* --- CONTACT SECTION (Requirement 6) --- */}
+      <div id="contact" className="bg-gray-900 text-white py-16">
+        <div className="container mx-auto px-6 grid md:grid-cols-2 gap-12">
+          <div>
+            <h2 className="text-3xl font-bold mb-6">Contact Us</h2>
+            <p className="mb-8 text-gray-400">Have questions? We are here to help!</p>
+            <div className="space-y-4">
+              <p className="flex items-center gap-3"><MapPin className="text-yellow-400"/> 123 Market Road, Dehradun, India</p>
+              <p className="flex items-center gap-3"><Phone className="text-yellow-400"/> +91 98765 43210</p>
+              <p className="flex items-center gap-3"><Mail className="text-yellow-400"/> support@geniusesfactory.com</p>
+            </div>
+            <div className="flex gap-4 mt-8">
+              <Facebook className="hover:text-blue-500 cursor-pointer"/>
+              <Twitter className="hover:text-blue-400 cursor-pointer"/>
+              <Instagram className="hover:text-pink-500 cursor-pointer"/>
+            </div>
+          </div>
+          
+          <form className="bg-gray-800 p-8 rounded-xl space-y-4">
+            <h3 className="text-xl font-bold mb-4">Send us a message</h3>
+            <input type="text" placeholder="Your Name" className="w-full p-3 rounded bg-gray-700 border-none text-white focus:ring-2 focus:ring-emerald-500" />
+            <input type="email" placeholder="Your Email" className="w-full p-3 rounded bg-gray-700 border-none text-white focus:ring-2 focus:ring-emerald-500" />
+            <textarea placeholder="Message" rows="3" className="w-full p-3 rounded bg-gray-700 border-none text-white focus:ring-2 focus:ring-emerald-500"></textarea>
+            <button className="w-full bg-emerald-500 py-3 rounded font-bold hover:bg-emerald-600 transition">Submit Query</button>
+          </form>
+        </div>
+        <div className="text-center mt-12 border-t border-gray-800 pt-6 text-gray-500 text-sm">
+          &copy; 2025 ABC General Store. All rights reserved.
+        </div>
+      </div>
+
+      {/* --- CART DRAWER (Requirement 4) --- */}
       {showCart && (
-        <div className="fixed inset-0 z-50 flex justify-end bg-black bg-opacity-50">
-          <div className="w-full max-w-md bg-white h-full shadow-2xl p-6 flex flex-col">
-            <div className="flex justify-between items-center border-b pb-4 mb-4">
-              <h2 className="text-2xl font-bold">Your Cart</h2>
-              <button onClick={() => setShowCart(false)}><X size={24}/></button>
+        <div className="fixed inset-0 z-50 flex justify-end bg-black bg-opacity-60 backdrop-blur-sm">
+          <div className="w-full max-w-md bg-white h-full shadow-2xl flex flex-col animate-slide-in">
+            <div className="p-6 bg-emerald-900 text-white flex justify-between items-center shadow-md">
+              <h2 className="text-xl font-bold">Your Cart ({cart.length})</h2>
+              <button onClick={() => setShowCart(false)}><X/></button>
             </div>
             
-            <div className="flex-1 overflow-y-auto space-y-4">
-              {cart.length === 0 ? <p className="text-gray-500 text-center">Your cart is empty.</p> : 
+            <div className="flex-1 overflow-y-auto p-6 space-y-4 bg-gray-50">
+              {cart.length === 0 ? (
+                <div className="text-center text-gray-400 mt-20">
+                  <ShoppingCart size={48} className="mx-auto mb-4 opacity-50"/>
+                  <p>Your cart is empty.</p>
+                </div>
+              ) : 
                 cart.map((item, index) => (
-                  <div key={index} className="flex justify-between items-center bg-gray-50 p-3 rounded">
-                    <div>
-                      <h4 className="font-bold">{item.name}</h4>
-                      <p className="text-sm text-gray-500">₹{item.price}</p>
+                  <div key={index} className="flex justify-between items-center bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                    <div className="flex items-center gap-4">
+                      <img src={item.image} className="w-12 h-12 rounded-md object-cover" alt="" />
+                      <div>
+                        <h4 className="font-bold text-gray-800">{item.name}</h4>
+                        <p className="text-sm text-emerald-600 font-semibold">₹{item.price}</p>
+                      </div>
                     </div>
+                    {/* Remove Button */}
+                    <button onClick={() => removeFromCart(index)} className="text-red-400 hover:text-red-600 p-2">
+                      <Trash2 size={18}/>
+                    </button>
                   </div>
                 ))
               }
             </div>
 
-            <div className="border-t pt-4 mt-4">
-              <div className="flex justify-between text-xl font-bold mb-4">
-                <span>Total:</span>
+            <div className="p-6 border-t bg-white shadow-inner">
+              <div className="flex justify-between text-xl font-bold mb-4 text-gray-800">
+                <span>Total Amount:</span>
                 <span>₹{cart.reduce((sum, item) => sum + item.price, 0)}</span>
               </div>
               <button 
                 onClick={handlePayment}
-                className="w-full bg-green-600 text-white py-3 rounded-lg font-bold hover:bg-green-700 transition">
-                Checkout Securely
+                className="w-full bg-yellow-500 text-black py-4 rounded-xl font-bold text-lg hover:bg-yellow-400 transition shadow-lg">
+                Proceed to Checkout
               </button>
             </div>
           </div>
         </div>
       )}
-
-      <Footer />
     </div>
   );
 }
