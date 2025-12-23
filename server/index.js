@@ -1,3 +1,4 @@
+// FINAL UPDATE V10
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -52,21 +53,21 @@ app.get('/api/seed', async (req, res) => {
             price: 140, 
             category: "Staples", 
             description: "Healthy refined sunflower cooking oil.",
-            image: "https://images.unsplash.com/photo-1474979266404-7cadd259c308?auto=format&fit=crop&w=600&q=80"
+            image: "https://cdn.shopify.com/s/files/1/1569/1929/products/TropicalSunSunflowerOil1LitreBottle_1200x1200.jpg?v=1625150841"
         },
         { 
             name: "Sugar (1kg)", 
             price: 45, 
             category: "Staples", 
             description: "Fine white sulphur-free sugar.",
-            image: "https://images.unsplash.com/photo-1581441363689-1f3c3c414635?auto=format&fit=crop&w=600&q=80" 
+            image: "https://pngimg.com/uploads/sugar/sugar_PNG98785.png" 
         },
         { 
             name: "Wheat Flour (10kg)", 
             price: 350, 
             category: "Staples", 
             description: "Whole wheat flour, chakki fresh.",
-            image: "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=600&q=80"
+            image: "https://images.wisegeek.com/starch-wheat-flour.jpg"
         },
 
         // VEGETABLES
@@ -82,7 +83,7 @@ app.get('/api/seed', async (req, res) => {
             price: 40, 
             category: "Vegetables", 
             description: "Crunchy green capsicum.",
-            image: "https://images.unsplash.com/photo-1563565375-f3fdf5dbc240?auto=format&fit=crop&w=600&q=80"
+            image: "https://tse4.mm.bing.net/th/id/OIP.kpadQepa0rdVegYOf7F_5wAAAA?pid=Api&P=0&h=180"
         },
         { 
             name: "Red Onions (1kg)", 
@@ -96,7 +97,7 @@ app.get('/api/seed', async (req, res) => {
             price: 25, 
             category: "Vegetables", 
             description: "Large size fresh potatoes.",
-            image: "https://images.unsplash.com/photo-1518977676605-dc9b61140974?auto=format&fit=crop&w=600&q=80"
+            image: "https://tse4.mm.bing.net/th/id/OIP.TVz1gTTP2ACpfYOXZVm-iwHaFj?pid=Api&P=0&h=180"
         },
 
         // SNACKS & BEVERAGES
@@ -104,8 +105,8 @@ app.get('/api/seed', async (req, res) => {
             name: "Tea Powder (500g)", 
             price: 250, 
             category: "Beverages", 
-            description: "Strong aromatic Assam tea.",
-            image: "https://images.unsplash.com/photo-1571934811356-5cc55449d0a4?auto=format&fit=crop&w=600&q=80"
+            description: "Tata Tea",
+            image: "https://cdn.shopify.com/s/files/1/0530/4552/6694/products/TTPL500gPolypackNorth_1600x.png?v=1649672775"
         },
         { 
             name: "Coffee Powder", 
@@ -142,7 +143,7 @@ app.get('/api/seed', async (req, res) => {
             price: 90, 
             category: "Personal Care", 
             description: "Mint fresh toothpaste.",
-            image: "https://images.unsplash.com/photo-1559599189-fe84dea4eb79?auto=format&fit=crop&w=600&q=80"
+            image: "https://tse3.mm.bing.net/th/id/OIP.kCUxrsvkPlAagJw-BbqH4QHaCt?pid=Api&P=0&h=180"
         },
         { 
             name: "Shampoo (200ml)", 
