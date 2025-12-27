@@ -1,5 +1,3 @@
-Markdown
-
 # 🛒 ABC General Store - Full Stack E-Commerce Website
 
 ![Project Status](https://img.shields.io/badge/Status-Completed-success)
@@ -23,7 +21,7 @@ This project was built using the **MERN** stack:
 | **Frontend** | React.js (Vite), Tailwind CSS, React Slick (Slider), Lucide React (Icons) |
 | **Backend** | Node.js, Express.js |
 | **Database** | MongoDB Atlas |
-| **Payment** | Custom Mock Payment Integration (Razorpay Simulation) |
+| **Payment** | Custom Mock Payment Integration |
 | **Deployment** | Vercel (Frontend), Render (Backend) |
 
 ---
