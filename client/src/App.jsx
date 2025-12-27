@@ -3,7 +3,8 @@ import axios from 'axios';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
-import { ShoppingCart, Menu, X, Trash2, MapPin, Phone, Mail, Facebook, Twitter, Instagram, Truck, ShieldCheck, Clock } from 'lucide-react';
+// ✅ Added CheckCircle for the popup icon
+import { ShoppingCart, Menu, X, Trash2, MapPin, Phone, Mail, Facebook, Twitter, Instagram, Truck, ShieldCheck, Clock, CheckCircle } from 'lucide-react';
 
 // --- Navbar Component ---
 const Navbar = ({ cartCount, toggleCart }) => {
@@ -81,17 +82,27 @@ function App() {
   const [cart, setCart] = useState([]);
   const [showCart, setShowCart] = useState(false);
   const [category, setCategory] = useState("All");
+  
+  // ✅ NEW: State for the Custom Notification Toast
+  const [toast, setToast] = useState(null);
 
   useEffect(() => {
-    // ✅ CHANGED: Uses Live Render Backend
     axios.get('https://abc-store-project.onrender.com/api/products')
       .then(res => setProducts(res.data))
       .catch(err => console.error(err));
   }, []);
 
+  // ✅ IMPROVED: Add to Cart with Professional Popup
   const addToCart = (product) => {
     setCart([...cart, product]);
-    alert(`${product.name} Added!`);
+    
+    // Show the custom toast
+    setToast(`${product.name} added to cart! 🛒`);
+
+    // Hide it automatically after 3 seconds
+    setTimeout(() => {
+      setToast(null);
+    }, 3000);
   };
 
   const removeFromCart = (index) => {
@@ -99,15 +110,18 @@ function App() {
     setCart(newCart);
   };
 
-  const handlePayment = async () => {
-    if(cart.length === 0) return alert("Cart is empty");
-    try {
-      // ✅ CHANGED: Uses Live Render Backend
-      await axios.post('https://abc-store-project.onrender.com/api/payment');
-      alert("🎉 Order Placed Successfully! (Demo Payment Verified)");
-      setCart([]);
-      setShowCart(false);
-    } catch (e) { alert("Payment Failed"); }
+  const handlePayment = () => {
+    if (cart.length === 0) return alert("Cart is empty");
+    
+    const totalAmount = cart.reduce((sum, item) => sum + item.price, 0);
+    setShowCart(false);
+
+    if (window.startPayment) {
+        window.startPayment(totalAmount);
+        setCart([]); 
+    } else {
+        alert("Payment Error: Please refresh the page.");
+    }
   };
 
   // Filter Logic
@@ -115,11 +129,11 @@ function App() {
   const filteredProducts = category === "All" ? products : products.filter(p => p.category === category);
 
   return (
-    <div className="bg-gray-50 min-h-screen font-sans scroll-smooth">
+    <div className="bg-gray-50 min-h-screen font-sans scroll-smooth relative">
       <Navbar cartCount={cart.length} toggleCart={() => setShowCart(true)} />
       <HeroSlider />
 
-      {/* --- SERVICES SECTION (Requirement 3) --- */}
+      {/* --- SERVICES SECTION --- */}
       <div id="services" className="container mx-auto px-6 py-16">
         <h2 className="text-3xl font-bold text-center text-gray-800 mb-10">Our Services</h2>
         <div className="grid md:grid-cols-3 gap-8 text-center">
@@ -141,7 +155,7 @@ function App() {
         </div>
       </div>
 
-      {/* --- PRODUCTS SECTION (Requirement 3) --- */}
+      {/* --- PRODUCTS SECTION --- */}
       <div id="products" className="bg-white py-16">
         <div className="container mx-auto px-6">
           <h2 className="text-4xl font-bold text-center text-gray-800 mb-4">Our Products</h2>
@@ -181,7 +195,7 @@ function App() {
         </div>
       </div>
 
-      {/* --- ABOUT SECTION (Requirement 1) --- */}
+      {/* --- ABOUT SECTION --- */}
       <div id="about" className="container mx-auto px-6 py-16 flex flex-col md:flex-row items-center gap-12">
         <div className="md:w-1/2">
           <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=800&q=80" className="rounded-2xl shadow-2xl" alt="About Us" />
@@ -197,7 +211,7 @@ function App() {
         </div>
       </div>
 
-      {/* --- CONTACT SECTION (Requirement 6) --- */}
+      {/* --- CONTACT SECTION --- */}
       <div id="contact" className="bg-gray-900 text-white py-16">
         <div className="container mx-auto px-6 grid md:grid-cols-2 gap-12">
           <div>
@@ -228,7 +242,7 @@ function App() {
         </div>
       </div>
 
-      {/* --- CART DRAWER (Requirement 4) --- */}
+      {/* --- CART DRAWER --- */}
       {showCart && (
         <div className="fixed inset-0 z-50 flex justify-end bg-black bg-opacity-60 backdrop-blur-sm">
           <div className="w-full max-w-md bg-white h-full shadow-2xl flex flex-col animate-slide-in">
@@ -276,6 +290,19 @@ function App() {
           </div>
         </div>
       )}
+
+      {/* ✅ NEW: BEAUTIFUL POPUP TOAST NOTIFICATION */}
+      {toast && (
+        <div className="fixed bottom-5 right-5 bg-emerald-700 text-white px-6 py-4 rounded-xl shadow-2xl z-50 flex items-center gap-3 animate-bounce">
+          <CheckCircle className="text-yellow-400" size={28} />
+          <div>
+            <h4 className="font-bold text-lg">Success!</h4>
+            <p className="text-sm opacity-90">{toast}</p>
+          </div>
+          <button onClick={() => setToast(null)} className="ml-4 hover:text-gray-300"><X size={18}/></button>
+        </div>
+      )}
+
     </div>
   );
 }
