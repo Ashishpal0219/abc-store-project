@@ -76,12 +76,13 @@ app.get('/api/seed', async (req, res) => {
             description: "Premium unpolished Toor Dal.",
             image: "https://www.nellonfoods.com/wp-content/uploads/2022/12/toor-dal.png"
         },
-        { 
+       { 
             name: "Table Salt (1kg)", 
             price: 20, 
             category: "Staples", 
             description: "Iodized table salt.",
-            image: "https://www.goudas.ca/ad/images/Windsor%20Iodized%20Table%20Salt-1kg.png"
+            // ✅ NEW IMAGE (A clear bowl of salt)
+            image: "https://images.unsplash.com/photo-1599940824399-b87987ceb72a?auto=format&fit=crop&w=600&q=80"
         },
 
         // --- VEGETABLES ---
