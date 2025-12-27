@@ -1,4 +1,4 @@
-// --- FINAL MEGA UPDATE: 20 PRODUCTS + OPTIMIZED IMAGES ---
+// --- FINAL MANUAL FIX: CLEANED LINKS ---
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -33,14 +33,14 @@ app.get('/api/products', async (req, res) => {
     }
 });
 
-// --- SEED ROUTE (Run this to fix DB) ---
+// --- SEED ROUTE ---
 app.get('/api/seed', async (req, res) => {
     console.log("... Wiping old data ...");
     await Product.deleteMany({});
 
-    console.log("... Adding 20 OPTIMIZED products ...");
+    console.log("... Adding MANUAL products ...");
     const products = [
-        // --- STAPLES (6 Items) ---
+        // --- STAPLES ---
         { 
             name: "Basmati Rice (5kg)", 
             price: 450, 
@@ -53,14 +53,14 @@ app.get('/api/seed', async (req, res) => {
             price: 140, 
             category: "Staples", 
             description: "Healthy refined sunflower cooking oil.",
-            image: "https://plus.unsplash.com/premium_photo-1667520043080-53dcca77e2aa?auto=format&fit=crop&w=600&h=400&q=80"
+            image: "https://images.onlinedpi.com/uploads/2019/04/Sunrich-Refined-Sunflower-Oil-1L-Pouch.jpg"
         },
         { 
             name: "Sugar (1kg)", 
             price: 45, 
             category: "Staples", 
             description: "Fine white sulphur-free sugar.",
-            image: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?auto=format&fit=crop&w=600&h=400&q=60" 
+            image: "https://png.pngtree.com/thumb_back/fh260/background/20231229/pngtree-texture-of-pure-white-sugar-image_13840319.png" 
         },
         { 
             name: "Wheat Flour (10kg)", 
@@ -74,17 +74,17 @@ app.get('/api/seed', async (req, res) => {
             price: 130, 
             category: "Staples", 
             description: "Premium unpolished Toor Dal.",
-            image: "https://plus.unsplash.com/premium_photo-1675237626068-bf46dd79df95?auto=format&fit=crop&w=600&h=400&q=80"
+            image: "https://www.nellonfoods.com/wp-content/uploads/2022/12/toor-dal.png"
         },
         { 
             name: "Table Salt (1kg)", 
             price: 20, 
             category: "Staples", 
             description: "Iodized table salt.",
-            image: "https://images.unsplash.com/photo-1518110925495-5fe2fda0442c?auto=format&fit=crop&w=600&h=400&q=80"
+            image: "https://www.goudas.ca/ad/images/Windsor%20Iodized%20Table%20Salt-1kg.png"
         },
 
-        // --- VEGETABLES (4 Items) ---
+        // --- VEGETABLES ---
         { 
             name: "Fresh Tomato (1kg)", 
             price: 30, 
@@ -97,7 +97,7 @@ app.get('/api/seed', async (req, res) => {
             price: 40, 
             category: "Vegetables", 
             description: "Crunchy green capsicum.",
-            image: "https://images.unsplash.com/photo-1563565375-f3fdf5dbc240?auto=format&fit=crop&w=600&h=400&q=80"
+            image: "https://tse2.mm.bing.net/th/id/OIP.9z7cw1Fd4pwLHaQNEYo4bwHaFj?pid=Api&P=0&h=180"
         },
         { 
             name: "Red Onions (1kg)", 
@@ -111,16 +111,16 @@ app.get('/api/seed', async (req, res) => {
             price: 25, 
             category: "Vegetables", 
             description: "Large size fresh potatoes.",
-            image: "https://images.unsplash.com/photo-1518977676605-dc9b61140974?auto=format&fit=crop&w=600&h=400&q=80"
+            image: "https://tse3.mm.bing.net/th/id/OIP.OLWNl47KZBa4iO68j1fB4AHaE7?pid=Api&P=0&h=180"
         },
 
-        // --- SNACKS & BEVERAGES (5 Items) ---
+        // --- SNACKS & BEVERAGES ---
         { 
             name: "Tea Powder (500g)", 
             price: 250, 
             category: "Beverages", 
             description: "Strong aromatic Assam tea.",
-            image: "https://images.unsplash.com/photo-1597481499750-3e6b22637e12?auto=format&fit=crop&w=600&h=400&q=80"
+            image: "https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=600&h=400&q=80"
         },
         { 
             name: "Coffee Powder", 
@@ -134,7 +134,7 @@ app.get('/api/seed', async (req, res) => {
             price: 60, 
             category: "Beverages", 
             description: "Fresh organic cow milk.",
-            image: "https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=600&h=400&q=80"
+            image: "https://images.unsplash.com/photo-1563636619-e9143da7973b?auto=format&fit=crop&w=600&h=400&q=80"
         },
         { 
             name: "Biscuits Pack", 
@@ -148,49 +148,49 @@ app.get('/api/seed', async (req, res) => {
             price: 15, 
             category: "Snacks", 
             description: "Spicy masala noodles.",
-            image: "https://images.unsplash.com/photo-1612929633738-8fe44f7ec841?auto=format&fit=crop&w=600&h=400&q=80"
+            image: "https://images.unsplash.com/photo-1585032226651-759b368d7246?auto=format&fit=crop&w=600&h=400&q=80"
         },
 
-        // --- HOUSEHOLD & PERSONAL (5 Items) ---
+        // --- HOUSEHOLD & PERSONAL ---
         { 
             name: "Chocolate Bar", 
             price: 80, 
             category: "Snacks", 
             description: "Dark chocolate bar.",
-            image: "https://images.unsplash.com/photo-1606312619070-d48b4c652a52?auto=format&fit=crop&w=600&h=400&q=80"
+            image: "https://images.unsplash.com/photo-1511381939415-e44015466834?auto=format&fit=crop&w=600&h=400&q=80"
         },
         { 
             name: "Detergent (1kg)", 
             price: 120, 
             category: "Household", 
             description: "Washing powder for clothes.",
-            image: "https://images.unsplash.com/photo-1583947215259-38e31be8751f?auto=format&fit=crop&w=600&h=400&q=80"
+            image: "https://www.4sgm.com/assets/Image/Product/detailsbig/93591.jpg"
         },
         { 
             name: "Dish Soap", 
             price: 40, 
             category: "Household", 
             description: "Lemon fresh dish cleaning liquid.",
-            image: "https://plus.unsplash.com/premium_photo-1677688220067-16d4c5c249c5?auto=format&fit=crop&w=600&h=400&q=80"
+            image: "https://i5.walmartimages.com/seo/Dawn-Ultra-Dish-Soap-Dishwashing-Liquid-Original-Scent-18-fl-oz_440b7d0b-f2a2-4925-8336-55ae826e1d00.7561a63e49f11318cc7bf41e741b1922.jpeg"
         },
         { 
             name: "Toothpaste", 
             price: 90, 
             category: "Personal Care", 
-            description: "Mint fresh toothpaste.",
-            image: "https://images.unsplash.com/photo-1559599189-fe84dea4eb79?auto=format&fit=crop&w=600&h=400&q=80"
+            description: "Colgate toothpaste.",
+            image: "https://tse2.mm.bing.net/th/id/OIP.sfjKrokfVWNCZxvzS4zuRwHaHa?pid=Api&P=0&h=180"
         },
         { 
             name: "Bathing Soap", 
             price: 45, 
             category: "Personal Care", 
-            description: "Lavender scented bathing soap.",
-            image: "https://images.unsplash.com/photo-1600857544200-b2f666a9a2ec?auto=format&fit=crop&w=600&h=400&q=80"
+            description: "Palmolive bathing soap.",
+            image: "https://i1.wp.com/www.troyrhodenwebstore.com/wp-content/uploads/2014/12/Palmolive-Natural-Olive-Ultra-Moisturising-Soap-Bar-Deodorant-110g-Body-Skin-6.jpg"
         }
     ];
 
     await Product.insertMany(products);
-    res.send("DB FIXED: 20 Products Added with PERFECT Sizes!");
+    res.send("DB FIXED: Manual Images Added!");
 });
 
 app.post('/api/payment', (req, res) => {
